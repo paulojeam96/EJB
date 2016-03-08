@@ -6,6 +6,7 @@
 package com.br.lp3.controller;
 
 import com.br.lp3.ejb.StatelessChat;
+import com.br.lp3.ejb.StatelessChatInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -21,9 +22,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
 public class FrontController extends HttpServlet {
-
     @EJB
-    private StatelessChat chat;
+    private StatelessChatInterface chat;
+
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

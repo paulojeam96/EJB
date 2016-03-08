@@ -16,7 +16,7 @@ public interface StatelessChatInterface {
 
     void conect();
 
-    public void disconnect();
+    void disconnect();
 
     void say(String msg);
     
