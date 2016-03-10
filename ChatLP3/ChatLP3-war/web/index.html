@@ -11,6 +11,26 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h2>CONEXÃO</h2>
+        <form>
+            <p><input type="text" name="nome"/></p>
+            <input type="hidden" name="command" value="conectar"/>
+            <p><input type="submit" value="CONECTAR"/></p>
+        </form>
+        
+        
+        <h2>STATEFUL</h2>
+        <form action="FrontController" method="POST">
+            <p><textarea name="msg"></textarea></p>
+            <input type="hidden" name="command" value="dizer2"/>
+            <p><input type="submit" value="ENVIAR"/></p>
+        </form>
+        
+        <h2>STATELESS</h2>
+        <form action="FrontController" method="POST">
+            <p><textarea name="msg"></textarea></p>
+            <input type="hidden" name="command" value="dizer"/>
+            <p><input type="submit" value="ENVIAR"/></p>
+        </form>
     </body>
 </html>

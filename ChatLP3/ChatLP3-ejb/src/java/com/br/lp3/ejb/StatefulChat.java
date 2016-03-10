@@ -11,13 +11,14 @@ import javax.ejb.Stateless;
  *
  * @author 31448471
  */
-@Stateless(mappedName = "Chat")
-public class StatelessChat implements StatelessChatInterface {
+@Stateless(mappedName = "Chat2")
+public class StatefulChat implements StatefulChatInterface {
     
     private String name = "Anonymous";
 
     @Override
-    public void conect() {
+    public void conect(String nome) {
+        this.name = nome;
         System.out.println(name+" entered the room!");
     }
 
@@ -30,6 +31,8 @@ public class StatelessChat implements StatelessChatInterface {
     public void say(String msg) {
         System.out.println(name+" said: "+msg);
     }
+
+    
 
     
     

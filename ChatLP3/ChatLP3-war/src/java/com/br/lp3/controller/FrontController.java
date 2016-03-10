@@ -7,9 +7,15 @@ package com.br.lp3.controller;
 
 import com.br.lp3.ejb.StatelessChat;
 import com.br.lp3.ejb.StatelessChatInterface;
+import com.br.lp3.util.JNDIutil;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,11 +28,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
 public class FrontController extends HttpServlet {
+
+    /*LOCAL
     @EJB
     private StatelessChatInterface chat;
 
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,14 +50,33 @@ public class FrontController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FrontController</title>");            
+            out.println("<title>Servlet FrontController</title>");
             out.println("</head>");
             out.println("<body>");
-            
-            chat.conect();
-            chat.say("Hello World");
-            chat.disconnect();
-            
+
+            Context context;
+            try {
+                
+                context = JNDIutil.getCORBAInitialContext();
+                StatelessChatInterface chat = (StatelessChatInterface) context.lookup("Chat");
+                
+                String command = request.getParameter("command");
+                switch(command){
+                    case "dizer":
+                        chat.say(request.getParameter("msg"));
+                        break;
+                }
+                
+                RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                rd.forward(request, response);
+                
+                //chat.conect();
+                
+                //chat.disconnect();
+            } catch (NamingException ex) {
+                Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             out.println("</body>");
             out.println("</html>");
         }
